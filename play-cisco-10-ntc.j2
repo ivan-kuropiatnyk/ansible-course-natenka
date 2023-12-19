@@ -1,0 +1,13 @@
+---
+- name: Run show commands on router
+  hosts: R10
+
+  tasks:
+  - name: Run sh ip int br
+    ntc_show_command:
+      platform: "cisco_ios"
+      command : "sh ip int br"
+      host    : "{{ inventory_hostname }}"
+      register: result
+
+  - debug: var=result

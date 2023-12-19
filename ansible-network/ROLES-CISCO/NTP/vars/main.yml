@@ -1,0 +1,8 @@
+---
+inet_iface    : FastEthernet0/0
+num           : 0
+ntp_ext_server:
+  - ip : 217.31.202.100
+    num: 1
+  - ip : 131.188.3.221
+    num: 2

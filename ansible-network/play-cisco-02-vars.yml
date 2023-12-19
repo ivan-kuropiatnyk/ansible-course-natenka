@@ -1,0 +1,15 @@
+---
+- name: First connection to Cisco using playbooks
+  hosts: all
+
+  vars:
+    uptime           : show ver | inc uptime
+    show_ip_inter_br : show ip inter brie
+
+  tasks:
+  - name: RUN SHOW UPTIME
+    ios_command:
+      commands : "{{uptime}}"
+  - name: RUN SHOW UPTIME
+    ios_command:
+      comands : "{{show_ip_inter_br}}"

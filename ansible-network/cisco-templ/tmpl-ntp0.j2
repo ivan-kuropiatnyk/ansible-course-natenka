@@ -1,0 +1,6 @@
+no ntp logging
+no ntp
+no ip route 131.188.3.221 255.255.255.255 172.17.20.1 name ROUTE-TO-NTP-SERVER-217.31.202.100
+no ip route 217.31.202.100 255.255.255.255 172.17.20.1 name ROUTE-TO-NTP-SERVER-217.31.202.100
+no ntp server 217.31.202.100 source FastEthernet0/0
+no ntp server 131.188.3.221 source FastEthernet0/0

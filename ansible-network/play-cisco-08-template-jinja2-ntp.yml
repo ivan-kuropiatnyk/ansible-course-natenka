@@ -1,0 +1,8 @@
+---
+- name: TEMPLATE JINJA2 NTP
+  hosts: r_ansible
+  
+  tasks:
+    - name: CONFIG NTP BY TEMPLATE J2
+      ios_config:
+        src: ./cisco-templ/tmpl-ntp.j2

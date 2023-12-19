@@ -1,0 +1,130 @@
+ansible_facts:
+    ansible_net_all_ipv4_addresses:
+    - 172.17.20.41
+    - 1.1.1.1
+    ansible_net_all_ipv6_addresses: []
+    ansible_net_api: cliconf
+    ansible_net_config: "Building configuration...\n\nCurrent configuration : 1749
+        bytes\n!\n! Last configuration change at 15:04:55 UTC Mon Jul 17 2023 by ivankurop\n!
+        NVRAM config last updated at 14:58:11 UTC Mon Jul 17 2023 by ivankurop\n!\nversion
+        12.4\nservice timestamps debug datetime msec\nservice timestamps log datetime
+        msec\nno service password-encryption\n!\nhostname r1-ansible\n!\nboot-start-marker\nboot-end-marker\n!\nenable
+        password qweszxc\n!\naaa new-model\n!\n!\naaa authentication login default
+        local\naaa authorization exec default local \n!\n!\naaa session-id common\nmemory-size
+        iomem 5\nip cef\n!\n!\n!\n!\nno ip domain lookup\nip domain name ip4it.click\n!\nmultilink
+        bundle-name authenticated\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\nusername
+        ivankurop password 0 qweszxc\narchive\n log config\n  hidekeys\n! \n!\n!\n!\nip
+        ssh maxstartups 10\nip ssh time-out 60\nip ssh authentication-retries 5\nip
+        ssh source-interface FastEthernet0/0\nip ssh logging events\nip ssh version
+        2\n!\n!\n!\n!\ninterface Loopback111\n description MADE IN ANSIBLE\n ip address
+        1.1.1.1 255.255.255.255\n!\ninterface FastEthernet0/0\n description HOME-NETWORK\n
+        ip address 172.17.20.41 255.255.255.0\n speed auto\n full-duplex\n!\ninterface
+        FastEthernet0/1\n no ip address\n shutdown\n duplex auto\n speed auto\n!\ninterface
+        FastEthernet1/0\n no ip address\n shutdown\n duplex auto\n speed auto\n!\ninterface
+        FastEthernet2/0\n no ip address\n shutdown\n duplex auto\n speed auto\n!\nip
+        forward-protocol nd\n!\n!\nno ip http server\nno ip http secure-server\n!\n!\n!\n!\n!\n!\n!\ncontrol-plane\n!\n!\n!\n!\n!\n!\n!\n!\n!\n!\nline
+        con 0\nline aux 0\nline vty 0 4\n logging synchronous\n transport input telnet
+        ssh\n transport output telnet ssh\n!\nntp clock-period 17179865\n!\nevent
+        manager applet COMM_ACC \n event cli pattern \".*\" sync no skip no occurs
+        1\n action 1 syslog msg \"User $_cli_username entered $_cli_msg on device
+        $_cli_host \"\n!\nend"
+    ansible_net_filesystems:
+    - 'flash:'
+    ansible_net_filesystems_info:
+        'flash:':
+            spacefree_kb: 131066.0
+            spacetotal_kb: 2147483486.0
+    ansible_net_gather_network_resources: []
+    ansible_net_gather_subset:
+    - config
+    - hardware
+    - interfaces
+    - default
+    ansible_net_hostname: r1-ansible
+    ansible_net_image: tftp://255.255.255.255/unknown
+    ansible_net_interfaces:
+        FastEthernet0/0:
+            bandwidth: 10000
+            description: HOME-NETWORK
+            duplex: null
+            ipv4:
+            -   address: 172.17.20.41
+                subnet: '24'
+            lineprotocol: up
+            macaddress: c2d9.6f36.0000
+            mediatype: null
+            mtu: 1500
+            operstatus: up
+            type: Gt96k FE
+        FastEthernet0/1:
+            bandwidth: 10000
+            description: null
+            duplex: null
+            ipv4: []
+            lineprotocol: down
+            macaddress: c2d9.6f36.0001
+            mediatype: null
+            mtu: 1500
+            operstatus: administratively down
+            type: Gt96k FE
+        FastEthernet1/0:
+            bandwidth: 100000
+            description: null
+            duplex: null
+            ipv4: []
+            lineprotocol: down
+            macaddress: c2d9.6f36.0010
+            mediatype: null
+            mtu: 1500
+            operstatus: administratively down
+            type: AmdFE
+        FastEthernet2/0:
+            bandwidth: 100000
+            description: null
+            duplex: null
+            ipv4: []
+            lineprotocol: down
+            macaddress: c2d9.6f36.0020
+            mediatype: null
+            mtu: 1500
+            operstatus: administratively down
+            type: AmdFE
+        Loopback111:
+            bandwidth: 8000000
+            description: MADE IN ANSIBLE
+            duplex: null
+            ipv4:
+            -   address: 1.1.1.1
+                subnet: '32'
+            lineprotocol: up
+            macaddress: null
+            mediatype: null
+            mtu: 1514
+            operstatus: up
+            type: null
+    ansible_net_iostype: IOS
+    ansible_net_memfree_mb: 129.58523178100586
+    ansible_net_memtotal_mb: 148.83999633789062
+    ansible_net_model: '3725'
+    ansible_net_neighbors:
+        FastEthernet0/0:
+        -   host: r3-ansible.ip4it.click
+            ip: 172.17.20.43
+            platform: Cisco 3725
+            port: FastEthernet0/0
+        -   host: R10.ip4it.link
+            ip: 172.17.20.4
+            platform: Cisco 7206VXR
+            port: FastEthernet0/0
+        -   host: r2-ansible..ip4it.click
+            ip: 172.17.20.42
+            platform: Cisco 3725
+            port: FastEthernet0/0
+    ansible_net_operatingmode: autonomous
+    ansible_net_python_version: 3.10.6
+    ansible_net_serialnum: FTX0945W0MY
+    ansible_net_system: ios
+    ansible_net_version: 12.4(15)T14
+    ansible_network_resources: {}
+changed: false
+failed: false

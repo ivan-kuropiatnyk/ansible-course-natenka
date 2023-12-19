@@ -1,0 +1,5 @@
+---
+# tasks file for ROLES-CISCO/NTP
+- name: CONFIG NTP BY TEMPLATE J2
+  ios_config:
+    src: tmpl-ntp.j2

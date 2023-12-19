@@ -1,0 +1,41 @@
+---
+- name: Collect IOS facts
+  hosts: r_ansible
+
+  roles:
+  - {role: NTP}
+  - {role: SIMPLE_ANOTHER}
+
+---
+# tasks file for ROLES-CISCO/SIMPLE_ANOTHER
+- name: CONFIG ACL from template
+  ios_config:
+    src: acl.j2
+
+ivankurop@vb-ub22:~/ansible-network$ cat ROLES-CISCO/SIMPLE_ANOTHER/templates/acl.j2
+ip access-list extended IN_to_OUT2
+ permit tcp 10.0.1.0 0.0.0.255 any eq www
+ permit tcp 10.0.1.0 0.0.0.255 any eq 22
+ permit icmp any any
+ deny ip any any
+
+ivankurop@vb-ub22:~/ansible-network$ cat ROLES-CISCO/NTP/tasks/main.yml
+---
+# tasks file for ROLES-CISCO/NTP
+- name: CONFIG NTP BY TEMPLATE J2
+  ios_config:
+    src: tmpl-ntp.j2
+
+ivankurop@vb-ub22:~/ansible-network$ cat ROLES-CISCO/NTP/templates/tmpl-ntp.j2
+ntp logging
+{% for item in ntp_ext_server %}
+
+  {% if item.ip == '131.188.3.221' %}
+    ntp server {{item.ip}}  prefer source {{inet_iface}}
+  {% else %}
+    ntp server {{item.ip}} source {{inet_iface}}
+  {% endif %}
+
+   ip route {{item.ip}} 255.255.255.255 172.17.20.1 name ROUTE-TO-NTP-SERVER_{{item.num}}
+
+{% endfor %}

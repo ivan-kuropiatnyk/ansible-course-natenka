@@ -1,0 +1,18 @@
+ivankurop@vb-ub22:~/ansible-network$ cat play-cisco-12-include.yml                   
+---
+- name: PAGE 106
+  hosts: r1-ansible
+
+  tasks:
+  - name: Send 
+    ios_config:
+      lines:
+        - no ip http server
+        - no ip http secure-server
+        - no ip domain lookup
+    notify: save config
+
+  - include: ./tasks/inface-lo_111.yml
+
+  handlers:
+    - include: ./handlers/handler-ios-write.yml

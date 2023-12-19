@@ -1,0 +1,58 @@
+---
+- name: Cisco ios_config
+  hosts: R10
+
+  tasks:
+    - name: Config ACL
+      ios_config:
+        before:
+          - no ip access-list extended IN_to_OUT
+        parents:
+          - ip access-list extended IN_to_OUT
+        lines:
+          - permit tcp 10.0.1.0 0.0.0.255 any eq www
+          - permit tcp 10.0.1.0 0.0.0.255 any eq 22
+          - permit icmp any any
+          - deny ip any any
+        match: exact
+
+    - name: TASK1 CONFIG LOOPBACK
+      ios_config:
+#      before:
+#        - no ip access-list extended IN_to_OUT
+        lines:
+          - no interface loopback 110
+#      after:
+#        - ip access-list extended IN_to_OUT
+      register: cfg1
+      ignore_errors: yes
+
+    - name: TASK2 CONFIG LOOPBACK
+      ios_config:
+        parents:
+          - interface loopback 110
+#      before: no shut
+        lines:
+          - ip address 10.110.110.110 255.255.255.255
+          - description LOOPBACK-ANSIBLE
+#      after:
+#        - end
+#        - wr mem
+        defaults : yes
+        save_when: modified
+        backup   : yes
+      register: cfg2
+
+    - name: Show config1 updates
+      debug:
+        var:
+          cfg1.updates
+      when:
+        - cfg1.changed
+
+    - name: Show config2 updates
+      debug:
+        var:
+          cfg2.updates
+      when:
+          - cfg2.changed

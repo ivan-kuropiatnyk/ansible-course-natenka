@@ -1,0 +1,12 @@
+---
+
+- name: Config LOOPBACK 111
+  ios_config:
+    before:
+      - interf lo 111
+    parents:
+      - interface lo 111
+    lines:
+      - description MADE IN ANSIBLE
+      - ip add 1.1.1.1 255.255.255.255
+      - no shut

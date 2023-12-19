@@ -1,0 +1,14 @@
+---
+sh_up             : show ver | inc uptime
+sh_ip_inter_br    : show ip inter brie
+sh_ospf_neighbors : show ip ospf nei
+sh_ip_arp         : show ip arp
+ntp_server        : 10.255.100.1
+users:
+  ivankurop: qweszxc
+  osboxes  : osboxes.org
+  admin    : Test123
+vlans:
+  - 10
+  - 20
+  - 30

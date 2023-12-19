@@ -1,0 +1,47 @@
+---
+- name: Cisco ios_config
+  hosts: all
+
+  tasks:
+    - name: Task1 EventManager
+      ios_config:
+        parents:
+          - event manager applet COMM_ACC
+        lines:
+          - event cli pattern ".*" sync no skip no occurs 1
+          - action 1 syslog msg "User $_cli_username entered $_cli_msg on device $_cli_host "
+        save_when: modified
+      register: cfg1
+      ignore_errors: yes
+#      match: exact
+
+    - name: TASK2 Aliases
+      ios_config:
+        lines:
+          - alias configure sh do sh
+          - alias exec ospf sh run | s ^router ospf
+          - alias exec bri show ip int bri | exc unass
+          - alias exec id show int desc
+          - alias exec top sh proc cpu sorted | excl 0.00%__0.00%__0.00%
+          - alias exec c conf t
+          - alias exec diff sh archive config differences nvram:startup-config system:running-config
+          - alias exec desc sh int desc | ex down
+          - alias exec bgp sh run | s ^router bgp
+        save_when: modified
+      register: cfg2
+      ignore_errors: yes
+#      match: exact
+
+    - name: Show config1 updates
+      debug:
+        var:
+          cfg1.updates
+      when:
+        - cfg1.changed
+
+    - name : Show config2 updates
+      debug:
+        var:
+          cfg2.updates
+      when :
+        - cfg2.changed

@@ -1,0 +1,17 @@
+---
+- name: Collect IOS facts
+  hosts: R10
+
+  tasks:
+  - name: Facts
+    ios_facts:
+      gather_subset: all
+    register : ios_facts_result
+  - name: Show ansible_net_all_ipv4_addresses fact
+    debug: var=ansible_net_all_ipv4_addresses
+  - name: Show ansible_net_interfaces fact
+    debug: var=ansible_net_interfaces['FastEthernet0/0']
+  - name: Copy facts to files
+    copy:
+      content: "{{ ios_facts_result | to_nice_json }}"
+      dest: "./all_facts/{{inventory_hostname}}_facts.json"

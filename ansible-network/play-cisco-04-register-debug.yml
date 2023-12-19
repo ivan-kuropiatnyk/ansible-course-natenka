@@ -1,0 +1,25 @@
+---
+- name: First connection to Cisco using playbooks
+  hosts: all
+
+  vars:
+    uptime           : show ver | inc uptime
+    show_ip_inter_br : show ip inter brie
+
+  tasks:
+  - name: RUN SHOW UPTIME
+    ios_command:
+      commands : "{{sh_up}}"
+    register   : sh_up
+  - name: DEBUG UPTIME
+    debug      : var=sh_up.stdout_lines
+
+  - name: RUN SHOW IP INTERFACES
+    ios_command:
+      commands : "{{show_ip_inter_br}}"
+    register   : show_ip_inter_br
+  - name       : OUTPUT SHOW IP INTERFACES
+    debug      : var=show_ip_inter_br.stdout_lines
+  - name: RUN SHOW ARP
+    ios_command:
+      commands : "{{sh_ip_arp}}"

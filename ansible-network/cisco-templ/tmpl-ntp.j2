@@ -1,0 +1,12 @@
+ntp logging
+{% for item in ntp_ext_server %}
+
+  {% if item.ip == '131.188.3.221' %}
+    ntp server {{item.ip}}  prefer source {{inet_iface}}
+  {% else %}
+    ntp server {{item.ip}} source {{inet_iface}}
+  {% endif %}
+
+   ip route {{item.ip}} 255.255.255.255 172.17.20.1 name ROUTE-TO-NTP-SERVER_{{item.num}}
+
+{% endfor %}

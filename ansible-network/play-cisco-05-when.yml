@@ -1,0 +1,24 @@
+---
+- name: First connection to Cisco using playbooks
+  hosts: all
+
+  vars:
+    uptime           : show ver | inc uptime
+    show_ip_inter_br : show ip inter brie
+    no_unassigned    : show ip int brief | exclude unassigned
+
+  tasks:
+  - name: REGISTER IP INTERFACES
+    ios_command:
+      commands : "{{show_ip_inter_br}}"
+    register   : show_ip_inter_br
+
+  - name: REGISTER NO UNASSIGNED
+    ios_command:
+      commands : "{{no_unassigned}}"
+    register   : no_unassigned
+
+  - name: Debug registered var
+    debug:
+      var: no_unassigned
+    when: "'unassigned' is in show_ip_inter_br.stdout[0]"

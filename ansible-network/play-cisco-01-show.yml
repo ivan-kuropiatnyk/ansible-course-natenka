@@ -1,0 +1,11 @@
+---
+- name: First connection to Cisco using playbooks
+  hosts: all
+
+  tasks:
+  - name: PING
+    ping:
+  
+  - name: RUN SHOW UPTIME
+    ios_command:
+      commands: show ver | inc uptime

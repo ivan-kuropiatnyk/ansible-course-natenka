@@ -1,0 +1,8 @@
+---
+- name: Collect IOS facts
+  hosts: R10
+
+  tasks:
+  - name: Facts
+    ios_facts:
+      gather_subset: all

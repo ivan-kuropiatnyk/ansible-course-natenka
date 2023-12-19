@@ -1,0 +1,10 @@
+---
+ansible_connection       : ansible.netcommon.network_cli
+ansible_network_os       : cisco.ios.ios
+ansible_user             : ivankurop
+ansible_password         : qweszxc
+ansible_become           : true
+ansible_become_method    : enable
+ansible_become_password  : qweszxc
+#ansible_ssh_common_args : '-o ProxyCommand="ssh -W %h:%p -q bastion01"'
+library                  : ./chapter15/library

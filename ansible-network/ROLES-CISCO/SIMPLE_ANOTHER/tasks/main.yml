@@ -1,0 +1,5 @@
+---
+# tasks file for ROLES-CISCO/SIMPLE_ANOTHER
+- name: CONFIG ACL from template
+  ios_config:
+    src: acl.j2

@@ -1,0 +1,7 @@
+---
+- name: Collect IOS facts
+  hosts: r_ansible
+
+  roles:
+  - {role: NTP}
+  - {role: SIMPLE_ANOTHER}

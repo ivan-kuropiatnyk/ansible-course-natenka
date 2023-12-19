@@ -1,0 +1,31 @@
+---
+- name: PAGE 106
+  hosts: r1-ansible
+
+  tasks:
+  - name: Config LOOPBACK 111
+    ios_config:
+      before:
+        - no interf lo 0
+      parents:
+        - interface lo 111
+      lines:
+        - description MADE IN ANSIBLE
+        - ip add 1.1.1.1 255.255.255.255
+        - no shut
+    notify: save config
+
+  - name: Send 
+    ios_config:
+      lines:
+        - no ip http server
+        - no ip http secure-server
+        - no ip domain lookup
+    notify: save config
+
+  handlers:
+    - name: save config
+      ios_command:
+        commands:
+          - write
+

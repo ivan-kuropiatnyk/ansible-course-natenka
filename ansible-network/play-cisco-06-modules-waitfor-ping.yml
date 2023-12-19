@@ -1,0 +1,10 @@
+---
+- name: Run show commands on routers
+  hosts: R10
+
+  tasks:
+  - name: run show commands
+    ios_command:
+      commands: ping 172.17.20.41
+      wait_for:
+        - result[0] contains 'Success rate is 100 percent'

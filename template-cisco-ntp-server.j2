@@ -1,0 +1,25 @@
+ntp logging
+{% for item in ntp_ext_server %}
+  {% if item.ip == '131.188.3.221' %}
+    ntp server {{item.ip}}  prefer source {{inet_iface}}
+  {% else %}
+    ntp server {{item.ip}} source {{inet_iface}}
+  {% endif %}
+  ip route {{item.ip}} 255.255.255.255 172.17.20.1 name ROUTE-TO-NTP-SERVER{{item.num}}
+{% endfor %}
+
+---
+inet_iface    : FastEthernet0/0
+num           : 0
+ntp_ext_server:
+                - 217.31.202.100
+                - 131.188.3.221
+
+---
+- name: TEMPLATE JINJA2 NTP
+  hosts: r_ansible
+
+  tasks:
+    - name: CONFIG NTP BY TEMPLATE J2
+      ios_config:
+        src: ./cisco-templ/tmpl-ntp.j2

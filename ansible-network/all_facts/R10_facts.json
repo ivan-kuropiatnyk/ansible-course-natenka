@@ -1,0 +1,399 @@
+{
+    "ansible_facts": {
+        "ansible_net_all_ipv4_addresses": [
+            "172.17.20.4",
+            "10.0.0.10",
+            "10.0.14.10",
+            "10.0.12.10",
+            "10.21.101.10",
+            "10.10.10.10",
+            "10.0.255.10",
+            "10.0.255.110",
+            "10.0.255.210",
+            "10.255.255.10"
+        ],
+        "ansible_net_all_ipv6_addresses": [],
+        "ansible_net_api": "cliconf",
+        "ansible_net_config": "Building configuration...\n\nCurrent configuration : 4366 bytes\n!\n! Last configuration change at 18:49:44 EET Sat Jul 15 2023 by ivankurop\n! NVRAM config last updated at 18:49:46 EET Sat Jul 15 2023 by ivankurop\n! NVRAM config last updated at 18:49:46 EET Sat Jul 15 2023 by ivankurop\nupgrade fpd auto\nversion 15.2\nservice timestamps debug datetime msec\nservice timestamps log datetime msec\nno service password-encryption\n!\nhostname R10\n!\nboot-start-marker\nboot-end-marker\n!\n!\nlogging buffered 32768\nlogging rate-limit 100\nno logging monitor\nenable secret 5 $1$idqp$GoUVDDytyvFdTq8ahgrQ/1\n!\naaa new-model\n!\n!\naaa authentication login default local\naaa authorization exec default group radius local \naaa authorization network default group radius local \naaa accounting delay-start\naaa accounting exec default start-stop group radius\naaa accounting network default start-stop group radius\n!\n!\n!\n!\naaa server radius dynamic-author\n!\naaa session-id common\nclock timezone EET 2 0\nclock summer-time EET recurring last Sun Mar 2:00 last Sun Oct 2:00\n!\n!\n!\n!\n!\n!\nip domain name ip4it.link\nip cef\nlogin on-failure log\nlogin on-success log\nno ipv6 cef\n!\nmultilink bundle-name authenticated\n!\n!\n!\n!\n!\n!\n!\n!\n!\narchive\n log config\n  logging enable\n  logging size 1000\n  notify syslog contenttype plaintext\n  hidekeys\nusername ivankurop secret 5 $1$Otf8$nJzugr2xK8/KXtHMYoISQ0\n!\nredundancy\n!\n!\nip ssh logging events\nip ssh version 2\n! \n!\n!\n!\n!\n!\n!\n!\n!\n!\ninterface Loopback0\n ip address 10.10.10.10 255.255.255.0\n!\ninterface Loopback1\n ip address 10.0.255.10 255.255.255.255\n!\ninterface Loopback100\n ip address 10.0.255.110 255.255.255.255\n!\ninterface Loopback200\n ip address 10.0.255.210 255.255.255.255\n!\ninterface Loopback255\n ip address 10.255.255.10 255.255.255.255\n!\ninterface FastEthernet0/0\n ip address 172.17.20.4 255.255.255.0\n duplex full\n!\ninterface Ethernet1/0\n description >[fa1/12]PNET-SW-INET_OSPF0\n no ip address\n duplex full\n!\ninterface Ethernet1/0.10\n description >OSPF_100_AREA_0-VLAN_10\n encapsulation dot1Q 10\n ip address 10.0.0.10 255.255.255.0\n!\ninterface Ethernet1/1\n description >[e1/1]R30\n ip address 10.0.14.10 255.255.255.0\n ip ospf network point-to-point\n duplex full\n!\ninterface Ethernet1/2\n description >[e1/2]R10_OSPF0\n ip address 10.0.12.10 255.255.255.0\n ip ospf network point-to-point\n duplex full\n!\ninterface Ethernet1/3\n description >[fa0/0]R212_OSPF21\n ip address 10.21.101.10 255.255.255.0\n ip ospf network point-to-point\n duplex half\n!\ninterface Ethernet1/4\n no ip address\n duplex full\n!\ninterface Ethernet1/5\n no ip address\n duplex full\n!\ninterface Ethernet1/6\n no ip address\n duplex full\n!\ninterface Ethernet1/7\n no ip address\n duplex full\n!\ninterface Ethernet2/0\n no ip address\n duplex full\n!\ninterface Ethernet2/1\n no ip address\n duplex full\n!\ninterface Ethernet2/2\n no ip address\n duplex full\n!\ninterface Ethernet2/3\n no ip address\n duplex full\n!\ninterface Ethernet2/4\n no ip address\n duplex full\n!\ninterface Ethernet2/5\n no ip address\n duplex full\n!\ninterface Ethernet2/6\n no ip address\n duplex full\n!\ninterface Ethernet2/7\n no ip address\n duplex full\n!\nrouter ospf 100\n router-id 10.0.0.10\n redistribute connected subnets\n redistribute static subnets\n passive-interface default\n no passive-interface Ethernet1/0.10\n no passive-interface Ethernet1/1\n no passive-interface Ethernet1/2\n no passive-interface Ethernet1/3\n network 10.0.0.0 0.0.0.255 area 0.0.0.0\n network 10.0.12.0 0.0.0.255 area 0.0.0.0\n network 10.0.14.0 0.0.0.255 area 0.0.0.0\n network 10.21.101.0 0.0.0.255 area 21\n default-information originate\n!\nip forward-protocol nd\nip http server\nno ip http secure-server\n!\n!\nip route 0.0.0.0 0.0.0.0 172.17.20.1 name ROUTE-DEFAULT-TO-FLAT-ASA\nip route 185.121.81.200 255.255.255.255 172.17.20.1 name ROUTE-TO-NTP-SERVER-2\nip route 188.165.18.162 255.255.255.255 172.17.20.1 name ROUTE-TO-NTP-SERVER-1\n!\n!\n!\n!\n!\n!\ncontrol-plane\n!\n!\n!\nmgcp profile default\n!\n!\n!\ngatekeeper\n shutdown\n!\n!\nline con 0\n logging synchronous\n stopbits 1\nline aux 0\n stopbits 1\nline vty 0 4\n session-timeout 10 \n session-limit 100\n logging synchronous\n transport input telnet ssh\n transport output telnet ssh\n!\nntp logging\nntp master\nntp server 217.31.202.100 minpoll 8 source FastEthernet0/0\nntp server 131.188.3.221 prefer source FastEthernet0/0\nevent manager applet COMM_ACC\n event cli pattern \".*\" sync no skip no occurs 1\n action 1 syslog msg \"User $_cli_username entered $_cli_msg on device $_cli_host \"\n!\nend",
+        "ansible_net_filesystems": [
+            "disk0:"
+        ],
+        "ansible_net_filesystems_info": {
+            "disk0:": {
+                "spacefree_kb": 131066.0,
+                "spacetotal_kb": 2147483486.0
+            }
+        },
+        "ansible_net_gather_network_resources": [],
+        "ansible_net_gather_subset": [
+            "hardware",
+            "interfaces",
+            "config",
+            "default"
+        ],
+        "ansible_net_hostname": "R10",
+        "ansible_net_image": "tftp://255.255.255.255/unknown",
+        "ansible_net_interfaces": {
+            "Ethernet1/0": {
+                "bandwidth": 10000,
+                "description": ">[fa1/12]PNET-SW-INET_OSPF0",
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.001c",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet1/0.10": {
+                "bandwidth": 10000,
+                "description": ">OSPF_100_AREA_0-VLAN_10",
+                "duplex": null,
+                "ipv4": [
+                    {
+                        "address": "10.0.0.10",
+                        "subnet": "24"
+                    }
+                ],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.001c",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet1/1": {
+                "bandwidth": 10000,
+                "description": ">[e1/1]R30",
+                "duplex": null,
+                "ipv4": [
+                    {
+                        "address": "10.0.14.10",
+                        "subnet": "24"
+                    }
+                ],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.001d",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet1/2": {
+                "bandwidth": 10000,
+                "description": ">[e1/2]R10_OSPF0",
+                "duplex": null,
+                "ipv4": [
+                    {
+                        "address": "10.0.12.10",
+                        "subnet": "24"
+                    }
+                ],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.001e",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet1/3": {
+                "bandwidth": 10000,
+                "description": ">[fa0/0]R212_OSPF21",
+                "duplex": null,
+                "ipv4": [
+                    {
+                        "address": "10.21.101.10",
+                        "subnet": "24"
+                    }
+                ],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.001f",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet1/4": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.0020",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet1/5": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.0021",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet1/6": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.0022",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet1/7": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.0023",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet2/0": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.0038",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet2/1": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.0039",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet2/2": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.003a",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet2/3": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.003b",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet2/4": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.003c",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet2/5": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.003d",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet2/6": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.003e",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "Ethernet2/7": {
+                "bandwidth": 10000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.003f",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "AmdP2"
+            },
+            "FastEthernet0/0": {
+                "bandwidth": 100000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [
+                    {
+                        "address": "172.17.20.4",
+                        "subnet": "24"
+                    }
+                ],
+                "lineprotocol": "up",
+                "macaddress": "ca6d.43d2.0000",
+                "mediatype": null,
+                "mtu": 1500,
+                "operstatus": "up",
+                "type": "DEC21140"
+            },
+            "Loopback0": {
+                "bandwidth": 8000000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [
+                    {
+                        "address": "10.10.10.10",
+                        "subnet": "24"
+                    }
+                ],
+                "lineprotocol": "up",
+                "macaddress": null,
+                "mediatype": null,
+                "mtu": 1514,
+                "operstatus": "up",
+                "type": null
+            },
+            "Loopback1": {
+                "bandwidth": 8000000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [
+                    {
+                        "address": "10.0.255.10",
+                        "subnet": "32"
+                    }
+                ],
+                "lineprotocol": "up",
+                "macaddress": null,
+                "mediatype": null,
+                "mtu": 1514,
+                "operstatus": "up",
+                "type": null
+            },
+            "Loopback100": {
+                "bandwidth": 8000000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [
+                    {
+                        "address": "10.0.255.110",
+                        "subnet": "32"
+                    }
+                ],
+                "lineprotocol": "up",
+                "macaddress": null,
+                "mediatype": null,
+                "mtu": 1514,
+                "operstatus": "up",
+                "type": null
+            },
+            "Loopback200": {
+                "bandwidth": 8000000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [
+                    {
+                        "address": "10.0.255.210",
+                        "subnet": "32"
+                    }
+                ],
+                "lineprotocol": "up",
+                "macaddress": null,
+                "mediatype": null,
+                "mtu": 1514,
+                "operstatus": "up",
+                "type": null
+            },
+            "Loopback255": {
+                "bandwidth": 8000000,
+                "description": null,
+                "duplex": null,
+                "ipv4": [
+                    {
+                        "address": "10.255.255.10",
+                        "subnet": "32"
+                    }
+                ],
+                "lineprotocol": "up",
+                "macaddress": null,
+                "mediatype": null,
+                "mtu": 1514,
+                "operstatus": "up",
+                "type": null
+            }
+        },
+        "ansible_net_iostype": "IOS",
+        "ansible_net_memfree_mb": 46.070655822753906,
+        "ansible_net_memtotal_mb": 96.17170333862305,
+        "ansible_net_model": "7206VXR",
+        "ansible_net_neighbors": {
+            "FastEthernet0/0": [
+                {
+                    "host": "r3-ansible.ip4it.click",
+                    "ip": "172.17.20.43",
+                    "platform": "Cisco 3725",
+                    "port": "FastEthernet0/0"
+                },
+                {
+                    "host": "r1-ansible.ip4it.click",
+                    "ip": "172.17.20.41",
+                    "platform": "Cisco 3725",
+                    "port": "FastEthernet0/0"
+                },
+                {
+                    "host": "r2-ansible..ip4it.click",
+                    "ip": "172.17.20.42",
+                    "platform": "Cisco 3725",
+                    "port": "FastEthernet0/0"
+                }
+            ]
+        },
+        "ansible_net_operatingmode": "autonomous",
+        "ansible_net_python_version": "3.10.6",
+        "ansible_net_serialnum": "4279256517",
+        "ansible_net_system": "ios",
+        "ansible_net_version": "15.2(4)M11",
+        "ansible_network_resources": {}
+    },
+    "changed": false,
+    "failed": false
+}

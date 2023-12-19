@@ -1,0 +1,8 @@
+---
+- name: Run cfg commands on router
+  hosts: R10
+
+  tasks:
+    - name: Config ACL from source file
+      ios_config:
+        src: ./cisco-templ/acl_cfg.txt
